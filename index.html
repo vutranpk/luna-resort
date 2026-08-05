@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUNA Resort & Hotel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        bgLight: '#F5F5F5',
+                        bgDark: '#111111', 
+                        accent: '#F6C49F',
+                        textDark: '#1A1A1A',
+                    },
+                    letterSpacing: {
+                        tighter: '-.04em',
+                        tightest: '-.06em',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { overflow-x: hidden; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .hero-arch {
+            border-top-left-radius: 50% 20%;
+            border-top-right-radius: 50% 20%;
+            overflow: hidden;
+            box-shadow: 0 -20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .footer-watermark {
+            font-family: 'Playfair Display', serif;
+            font-size: 28vw;
+            line-height: 0.75;
+            color: #222222;
+            font-weight: 900;
+            white-space: nowrap;
+            user-select: none;
+            text-align: justify;
+        }
+
+        .lang-active {
+            font-weight: 900;
+            color: #1A1A1A;
+            border-bottom: 2px solid #1A1A1A;
+        }
+        .lang-inactive {
+            font-weight: 500;
+            color: #9CA3AF;
+        }
+
+        /* Typographic Art Styles */
+        .blend-diff {
+            mix-blend-mode: difference;
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body class="font-sans bg-bgLight text-textDark antialiased">
+
+    <!-- HERO SECTION -->
+    <section class="relative w-full min-h-[90vh] lg:h-[110vh] pt-8 flex flex-col">
+        <!-- Giant Background Text -->
+        <div class="font-heading text-[40vw] lg:text-[25vw] leading-[0.8] text-gray-200/50 font-black absolute top-1/4 -left-1/4 transform lg:-rotate-90 pointer-events-none mix-blend-multiply">
+            LUNA
+        </div>
+
+        <!-- Navbar & Logo -->
+        <nav class="relative z-50 px-6 lg:px-12 flex justify-between items-center w-full mb-12 lg:mb-0">
+            <!-- Header Logo -->
+            <div class="font-heading text-3xl font-black tracking-widest text-textDark uppercase hover:opacity-70 transition-opacity cursor-pointer">
+                LUNA.
+            </div>
+
+            <div class="hidden lg:flex flex-wrap gap-x-6 gap-y-2 lg:space-x-12 text-sm font-medium mx-auto absolute left-1/2 transform -translate-x-1/2">
+                <a href="#" class="hover:text-gray-500 transition-colors" data-i18n="nav_home">Home</a>
+                <span class="text-gray-300 hidden lg:inline">\</span>
+                <a href="#" class="hover:text-gray-500 transition-colors" data-i18n="nav_about">About Us</a>
+                <span class="text-gray-300 hidden lg:inline">\</span>
+                <a href="#" class="hover:text-gray-500 transition-colors" data-i18n="nav_contact">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <!-- Language Switcher -->
+                <div class="flex items-center gap-2 text-xs font-heading cursor-pointer z-50">
+                    <span id="btn-lang-en" class="lang-active transition-colors pb-1" onclick="setLanguage('en')">EN</span>
+                    <span class="text-gray-300 pb-1">\</span>
+                    <span id="btn-lang-vi" class="lang-inactive transition-colors pb-1" onclick="setLanguage('vi')">VI</span>
+                </div>
+                
+                <button class="hover:opacity-70 transition-opacity outline-none border-none bg-transparent cursor-pointer ml-4">
+                    <svg class="w-8 h-8 lg:w-10 lg:h-10 text-textDark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M7 17L17 7m0 0H8m9 0v9"></path></svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Content Container (NO Z-INDEX on children, DOM order dictates stacking) -->
+        <div class="relative w-full flex-grow flex flex-col lg:flex-row px-6 lg:px-12 items-center justify-between">
+            
+            <!-- DOM 1: Right Arch Image (Renders underneath) -->
+            <div class="relative w-full lg:w-[45%] h-[50vh] lg:h-[85vh] bg-bgDark hero-arch flex items-end justify-center mb-8 lg:mb-0 group overflow-hidden order-1 lg:order-2">
+                <!-- Added group-hover:grayscale-0 -->
+                <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=2000&auto=format&fit=crop" alt="Resort Architecture" class="w-full h-full lg:h-[110%] object-cover hero-arch opacity-90 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-1000 ease-out grayscale contrast-125">
+                
+                <div class="absolute top-[30%] -left-6 lg:-left-16 w-48 lg:w-64 hidden md:block border-4 border-white shadow-2xl">
+                    <div class="overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?q=80&w=600&auto=format&fit=crop" class="w-full h-32 lg:h-40 object-cover grayscale contrast-125 hover:grayscale-0 hover:scale-110 transition-all duration-1000 ease-out" alt="Thumbnail">
+                    </div>
+                    <div class="bg-white px-4 py-3">
+                        <p class="text-[10px] text-gray-800 font-bold uppercase tracking-widest whitespace-nowrap overflow-hidden text-ellipsis" data-i18n="hero_thumb_title">Vinh Hy Bay</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DOM 2: Left Text (Renders on top) -->
+            <div class="relative lg:w-[55%] mb-12 lg:mb-0 mt-8 lg:mt-0 flex flex-col justify-center order-2 lg:order-1 pointer-events-none">
+                <!-- Using blend-diff perfectly because it's in the same stacking context as image -->
+                <h1 class="font-heading text-[3.5rem] md:text-[5rem] lg:text-[7.5vw] font-black uppercase leading-[1.1] tracking-normal mb-8 lg:mb-12 blend-diff pointer-events-auto" data-i18n="hero_title">
+                    LUNA<br>RESORT
+                </h1>
+                <div class="lg:max-w-md lg:ml-20 pointer-events-auto">
+                    <!-- Normal dark text color for paragraphs -->
+                    <p class="text-base text-gray-600 leading-relaxed font-medium" data-i18n="hero_desc">LUNA Resort & Hotel offers an exquisite retreat embracing the pristine Vinh Hy Bay. No rules, no boundaries.</p>
+                    <div class="mt-8 font-heading text-xs uppercase tracking-widest font-bold text-accent" data-i18n="hero_since">Since 2026</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- BOOKING BAR -->
+    <section class="relative z-50 px-6 lg:px-12 mt-8 lg:-mt-20 mb-20 lg:mb-40">
+        <div class="bg-white p-6 md:p-8 shadow-xl flex flex-wrap lg:flex-nowrap items-center justify-between gap-6 w-full lg:w-[85%] mx-auto">
+            <div class="w-full sm:w-[45%] lg:w-1/5 cursor-pointer hover:opacity-70 transition-opacity duration-500">
+                <p class="font-heading text-xs font-black uppercase tracking-wider mb-2 text-gray-400" data-i18n="book_checkin">CHECK IN</p>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                    <span class="text-sm font-bold">18 Mar 2026</span>
+                </div>
+            </div>
+            <div class="w-full sm:w-[45%] lg:w-1/5 cursor-pointer hover:opacity-70 transition-opacity duration-500">
+                <p class="font-heading text-xs font-black uppercase tracking-wider mb-2 text-gray-400" data-i18n="book_checkout">CHECK OUT</p>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                    <span class="text-sm font-bold">26 Mar 2026</span>
+                </div>
+            </div>
+            <div class="w-full sm:w-1/2 lg:w-1/5 cursor-pointer hover:opacity-70 transition-opacity duration-500">
+                <p class="font-heading text-xs font-black uppercase tracking-wider mb-2 text-gray-400" data-i18n="book_guest">GUEST</p>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                    <span class="text-sm font-bold" data-i18n="book_guest_val">2 Adults</span>
+                </div>
+            </div>
+            <button class="w-full lg:w-auto flex shrink-0 border border-textDark outline-none mt-4 lg:mt-0 cursor-pointer bg-textDark text-white hover:bg-transparent hover:text-textDark transition-all duration-700 ease-out">
+                <div class="font-heading px-10 py-4 text-sm font-bold uppercase tracking-widest flex items-center justify-center" data-i18n="book_btn">BOOK NOW</div>
+            </button>
+        </div>
+    </section>
+
+    <!-- ĐẶC QUYỀN SỰ RIÊNG TƯ -->
+    <section class="relative max-w-[1400px] mx-auto px-6 lg:px-12 py-20 lg:py-64 min-h-auto">
+        <div class="font-heading text-[15vw] lg:text-[10vw] font-black text-gray-200 absolute top-0 lg:right-0 leading-[0.75] text-left lg:text-right pointer-events-none opacity-50 mix-blend-multiply" data-i18n="priv_bg_text">
+            PRIVATE<br>SPACE
+        </div>
+
+        <!-- No Z-INDEX on grid and children -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 relative mt-12 lg:mt-32 items-center">
+            
+            <!-- DOM 1: Image -->
+            <div class="lg:col-span-6 lg:col-start-7 relative order-1 lg:order-2 group">
+                <div class="overflow-hidden bg-bgDark">
+                    <img src="https://images.unsplash.com/photo-1540544660406-6a69dacb2804?q=80&w=1000&auto=format&fit=crop" class="w-full aspect-[4/5] object-cover grayscale contrast-125 opacity-80 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-1000 ease-out" alt="Reading on Balcony">
+                </div>
+                
+                <div class="absolute -bottom-10 lg:-bottom-20 -left-6 lg:-left-20 w-[60%] lg:w-[70%] aspect-video border-4 border-bgLight overflow-hidden shadow-2xl bg-bgDark">
+                    <img src="https://images.unsplash.com/photo-1590490359683-658d3d23f972?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover grayscale contrast-125 opacity-90 hover:opacity-100 hover:scale-110 hover:grayscale-0 transition-all duration-1000 ease-out" alt="Bedroom Privacy">
+                </div>
+            </div>
+
+            <!-- DOM 2: Text -->
+            <div class="lg:col-span-6 relative flex flex-col justify-center order-2 lg:order-1 mt-8 lg:mt-0 lg:-mr-32 pointer-events-none">
+                <h2 class="font-heading text-[12vw] md:text-[4rem] lg:text-[5.5vw] font-black uppercase leading-[1.1] tracking-normal mb-8 blend-diff" data-i18n="priv_title">
+                    ABSOLUTE<br>PRIVACY
+                </h2>
+                <div class="pointer-events-auto">
+                    <!-- Text dark for paragraphs on light bg -->
+                    <p class="text-textDark mb-12 max-w-sm leading-relaxed text-sm lg:ml-12 font-medium" data-i18n="priv_desc">In an era of rushed journeys, LUNA chooses a different path. No chaos, no pollution, just pure tranquility.</p>
+                    <div class="flex justify-between lg:justify-start lg:gap-12 lg:ml-12 text-textDark">
+                        <div>
+                            <div class="font-heading text-3xl lg:text-4vw font-black">45</div>
+                            <div class="text-[10px] uppercase font-bold text-gray-500 mt-2 tracking-widest" data-i18n="priv_villas_label">VILLAS</div>
+                        </div>
+                        <div>
+                            <div class="font-heading text-3xl lg:text-4vw font-black">15</div>
+                            <div class="text-[10px] uppercase font-bold text-gray-500 mt-2 tracking-widest" data-i18n="priv_years_label">YEARS</div>
+                        </div>
+                        <div>
+                            <div class="font-heading text-3xl lg:text-4vw font-black">85</div>
+                            <div class="text-[10px] uppercase font-bold text-gray-500 mt-2 tracking-widest" data-i18n="priv_guests_label">GUESTS/WK</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TỔ ẤM GIỮA THIÊN NHIÊN -->
+    <section class="bg-bgDark text-white py-20 lg:py-64 w-full relative mt-20 lg:mt-40">
+        
+        <h2 class="font-heading text-[10vw] font-black uppercase leading-[1.1] tracking-normal lg:absolute lg:-top-[5vw] lg:left-0 w-full text-center text-gray-600 opacity-20 px-6 lg:px-0 mb-12 lg:mb-0 pointer-events-none break-words" data-i18n="villa_title_bg">
+            NATURE SANCTUARY
+        </h2>
+        
+        <div class="max-w-[1400px] mx-auto px-6 lg:px-12 lg:mt-32 mb-12 lg:mb-24 relative">
+            <p class="text-gray-400 max-w-md leading-relaxed text-base font-medium" data-i18n="villa_desc">
+                The 45 Private Villas are designed with a sustainable philosophy. Utilizing bamboo, rattan, and natural wood, each features an infinity pool embracing the bay.
+            </p>
+        </div>
+
+        <div class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pl-6 lg:pl-32 pb-12 gap-8 lg:gap-24 w-full relative cursor-grab active:cursor-grabbing">
+            
+            <div class="snap-start shrink-0 w-[85vw] lg:w-[45vw] relative group">
+                <div class="overflow-hidden bg-black">
+                    <!-- Restored opacity, added hover:grayscale-0 -->
+                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1000&auto=format&fit=crop" class="w-full aspect-[4/3] object-cover grayscale contrast-125 opacity-80 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-1000 ease-out" alt="Ocean Pool Villa">
+                </div>
+                <div class="lg:absolute mt-6 lg:mt-0 lg:bottom-10 lg:-right-20 w-full pointer-events-none">
+                    <div class="font-heading font-black text-xl lg:text-[2.5vw] uppercase tracking-normal mb-2 text-white leading-none blend-diff" data-i18n="villa_1_title">$450 / OCEAN VILLA</div>
+                    <div class="flex justify-between items-center text-gray-300 w-full lg:w-auto">
+                        <span class="text-xs font-bold uppercase tracking-widest" data-i18n="villa_1_desc">1 Bed \ 2 Guests</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="snap-start shrink-0 w-[85vw] lg:w-[45vw] relative group lg:mt-32"> 
+                <div class="overflow-hidden bg-black">
+                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=1000&auto=format&fit=crop" class="w-full aspect-[4/3] object-cover grayscale contrast-125 opacity-80 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-1000 ease-out" alt="Jungle Suite">
+                </div>
+                <div class="lg:absolute mt-6 lg:mt-0 lg:bottom-10 lg:-left-12 w-full pointer-events-none">
+                    <div class="font-heading font-black text-xl lg:text-[2.5vw] uppercase tracking-normal mb-2 text-white leading-none blend-diff" data-i18n="villa_2_title">$650 / JUNGLE SUITE</div>
+                    <div class="flex justify-between items-center text-gray-300 w-full lg:w-auto">
+                        <span class="text-xs font-bold uppercase tracking-widest" data-i18n="villa_2_desc">2 Beds \ 4 Guests</span>
+                    </div>
+                </div>
+            </div>
+            <div class="shrink-0 w-[5vw] lg:w-[10vw]"></div>
+        </div>
+    </section>
+
+    <!-- TÁI TẠO NĂNG LƯỢNG -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-12 py-20 lg:py-64 relative">
+        <h2 class="font-heading text-[12vw] md:text-[3rem] lg:text-[6vw] font-black uppercase leading-[1.1] tracking-normal mb-16 lg:mb-40 text-textDark break-words" data-i18n="well_title">
+            REVIVE<br>YOUR SOUL
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8 relative lg:pb-32 items-end">
+            <!-- DOM 1 & 2: Images -->
+            <div class="md:col-span-5 relative group">
+                <div class="overflow-hidden mb-6 bg-black"><img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=800&auto=format&fit=crop" class="w-full aspect-[3/4] object-cover group-hover:scale-105 group-hover:grayscale-0 grayscale contrast-125 opacity-80 transition-all duration-1000 ease-out" alt="Spa"></div>
+                <h3 class="font-heading font-black text-xl lg:text-[2vw] uppercase tracking-normal leading-none" data-i18n="well_1_title">LUNA SPA</h3>
+                <p class="text-sm text-gray-500 mt-2 font-medium" data-i18n="well_1_desc">Traditional therapies & Singing bowls.</p>
+            </div>
+            
+            <div class="md:col-span-6 md:col-start-7 lg:-mt-20 relative group">
+                <div class="overflow-hidden mb-6 bg-black"><img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800&auto=format&fit=crop" class="w-full aspect-video object-cover group-hover:scale-105 group-hover:grayscale-0 grayscale contrast-125 opacity-80 transition-all duration-1000 ease-out" alt="Food"></div>
+                <h3 class="font-heading font-black text-xl lg:text-[2vw] uppercase tracking-normal leading-none" data-i18n="well_2_title">PURE CUISINE</h3>
+                <p class="text-sm text-gray-500 mt-2 font-medium" data-i18n="well_2_desc">Organic ingredients sourced from LUNA Farm.</p>
+            </div>
+
+            <!-- DOM 3: Text -->
+            <div class="md:col-span-12 lg:absolute lg:top-1/3 lg:left-[30%] lg:w-[40%] relative mt-12 lg:mt-0 text-center lg:text-left pointer-events-none">
+                <h3 class="font-heading font-black text-[12vw] md:text-[3rem] lg:text-[5.5vw] uppercase tracking-normal leading-[1.1] blend-diff" data-i18n="well_3_title">OCEAN<br>YOGA</h3>
+                <p class="text-sm text-gray-600 mt-6 lg:ml-2 font-bold max-w-xs mx-auto lg:mx-0 pointer-events-auto bg-bgLight/80 lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none p-2 lg:p-0" data-i18n="well_3_desc">Embrace the sunrise at the most pristine cliff of Vinh Hy Bay.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- THIẾT KẾ BỀN VỮNG -->
+    <section class="bg-gray-100 py-20 lg:py-64 mx-4 lg:mx-0 overflow-hidden">
+        <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row gap-16 lg:gap-20">
+            <div class="lg:w-[45%] relative shrink-0">
+                <h2 class="font-heading text-[12vw] md:text-[3rem] lg:text-[4.5vw] font-black uppercase leading-[1.1] tracking-normal mb-8 break-words text-textDark" data-i18n="sus_title">
+                    SUSTAINABLE<br>DESIGN
+                </h2>
+                <div class="w-16 h-1 bg-accent mb-8"></div>
+                <p class="text-sm text-gray-600 max-w-xs leading-relaxed font-medium" data-i18n="sus_desc">Respecting native nature is our top philosophy. Every architectural detail is born from mother earth.</p>
+            </div>
+
+            <div class="lg:w-[55%] flex flex-col gap-20 lg:gap-40 relative pt-12 lg:pt-0 lg:pl-12">
+                <div class="relative lg:pl-24 border-l border-gray-300 pl-6">
+                    <div class="font-heading font-black text-[25vw] lg:text-[10vw] absolute -top-12 lg:-top-16 -left-4 lg:-left-12 text-gray-300 leading-none mix-blend-multiply opacity-50">01</div>
+                    <div class="relative pt-4">
+                        <h3 class="font-heading font-black text-xl lg:text-[2vw] uppercase mb-4 leading-none text-textDark" data-i18n="sus_1_title">INDIGENOUS ARCHITECTURE</h3>
+                        <p class="text-sm text-gray-600 max-w-md font-medium leading-relaxed" data-i18n="sus_1_desc">Utilizing bamboo, rattan, and natural wood, hidden beneath the shell of contemporary Indochine architecture.</p>
+                    </div>
+                </div>
+                
+                <div class="relative lg:pl-24 border-l border-gray-300 pl-6">
+                    <div class="font-heading font-black text-[25vw] lg:text-[10vw] absolute -top-12 lg:-top-16 -left-4 lg:-left-12 text-gray-300 leading-none mix-blend-multiply opacity-50">02</div>
+                    <div class="relative pt-4">
+                        <h3 class="font-heading font-black text-xl lg:text-[2vw] uppercase mb-4 leading-none text-textDark" data-i18n="sus_2_title">SMART ENERGY</h3>
+                        <p class="text-sm text-gray-600 max-w-md font-medium leading-relaxed" data-i18n="sus_2_desc">Intelligent system integrated with solar power, maximizing energy savings without compromising luxury.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TẠI SAO CHỌN LUNA? -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-12 py-20 lg:py-64 relative">
+        <h2 class="font-heading text-[12vw] md:text-[3.5rem] lg:text-[8vw] font-black uppercase leading-[1.1] tracking-normal mb-24 lg:mb-56 lg:text-center text-textDark w-full break-words" data-i18n="why_title">
+            WHY<br class="block lg:hidden"> LUNA?
+        </h2>
+
+        <div class="flex flex-col gap-32 lg:gap-64 w-full relative">
+            
+            <!-- Block 1 -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 relative items-center">
+                <div class="hidden lg:block font-heading font-black text-[20vw] absolute -top-48 -left-12 text-gray-100 leading-none pointer-events-none mix-blend-multiply opacity-50">1</div>
+                
+                <!-- DOM 1: Image -->
+                <div class="lg:col-span-7 relative overflow-hidden bg-black group">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1000&auto=format&fit=crop" class="w-full aspect-video object-cover grayscale contrast-125 opacity-80 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-1000 ease-out" alt="Privacy">
+                </div>
+                
+                <!-- DOM 2: Text -->
+                <div class="lg:col-span-6 lg:col-start-7 lg:-ml-16 relative flex flex-col justify-center pointer-events-none">
+                    <h3 class="font-heading font-black text-[10vw] md:text-[2.5rem] lg:text-[4.5vw] uppercase leading-[1.1] mb-6 blend-diff" data-i18n="why_1_title">
+                        ABSOLUTE<br>PRIVACY
+                    </h3>
+                    <p class="text-textDark lg:ml-2 font-medium max-w-sm pointer-events-auto" data-i18n="why_1_desc">A completely isolated space, bringing absolute peace to your vacation.</p>
+                </div>
+            </div>
+
+            <!-- Block 2 -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 relative items-center">
+                <div class="hidden lg:block font-heading font-black text-[20vw] absolute -top-48 -right-12 text-gray-100 leading-none pointer-events-none mix-blend-multiply opacity-50 text-right">2</div>
+                
+                <!-- DOM 1: Image (Swapped DOM order to render UNDER text) -->
+                <div class="lg:col-span-7 lg:col-start-6 relative order-1 lg:order-2 overflow-hidden bg-black group">
+                    <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=1000&auto=format&fit=crop" class="w-full aspect-square lg:aspect-[4/3] object-cover grayscale contrast-125 opacity-80 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-1000 ease-out" alt="Architecture">
+                </div>
+
+                <!-- DOM 2: Text (Swapped DOM order to render OVER image) -->
+                <div class="lg:col-span-6 relative flex flex-col lg:items-end lg:text-right order-2 lg:order-1 pointer-events-none lg:-mr-16">
+                    <h3 class="font-heading font-black text-[10vw] md:text-[2.5rem] lg:text-[4.5vw] uppercase leading-[1.1] mb-6 blend-diff" data-i18n="why_2_title">
+                        CONTEMPORARY<br>INDOCHINE
+                    </h3>
+                    <p class="text-textDark lg:mr-2 font-medium max-w-sm pointer-events-auto" data-i18n="why_2_desc">The perfect intersection between classical architecture and modern luxury amenities.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- BOOK YOUR STAY -->
+    <section class="py-32 lg:py-64 w-full bg-bgDark text-white text-center flex flex-col items-center justify-center relative overflow-hidden">
+        <div class="relative px-6 w-full max-w-5xl mx-auto">
+            <h2 class="font-heading text-[10vw] md:text-[9vw] font-black uppercase leading-[1.1] tracking-normal mb-16 break-words" data-i18n="cta_title">
+                YOUR DREAM<br><span class="text-accent italic">GETAWAY</span>
+            </h2>
+            
+            <button class="flex mx-auto shrink-0 border border-white outline-none w-full md:w-auto cursor-pointer group hover:bg-white transition-colors duration-700 ease-out bg-transparent">
+                <div class="font-heading text-white px-12 py-6 text-sm lg:text-xl font-black uppercase tracking-widest flex items-center justify-center group-hover:text-bgDark transition-colors duration-700" data-i18n="cta_btn">CHECK AVAILABILITY</div>
+            </button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-100 text-bgDark pt-20 lg:pt-48 w-full relative overflow-hidden flex flex-col">
+        <div class="max-w-[1400px] mx-auto px-6 lg:px-12 w-full grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-20 relative">
+            <div>
+                <h3 class="font-heading text-[12vw] md:text-[8vw] lg:text-[4.5vw] font-black uppercase leading-[1.1] tracking-normal mb-8 break-words" data-i18n="foot_title">SUBSCRIBE<br>LUNA</h3>
+                <div class="flex flex-col sm:flex-row w-full max-w-lg border-b-2 border-textDark pb-2">
+                    <input type="email" placeholder="ENTER EMAIL" class="font-heading flex-1 px-2 py-3 text-sm font-bold text-textDark bg-transparent outline-none uppercase placeholder-gray-400">
+                    <button class="font-heading text-textDark px-4 py-3 text-sm font-black uppercase hover:text-accent transition-colors cursor-pointer" data-i18n="foot_btn">SUBMIT</button>
+                </div>
+            </div>
+            
+            <div class="flex flex-col justify-end text-left md:text-right pb-4">
+                <h4 class="font-heading font-black text-xl lg:text-[1.5vw] uppercase tracking-normal mb-4" data-i18n="foot_contact_title">CONTACT</h4>
+                <p class="font-bold text-sm mb-1">+84 259 388 6868</p>
+                <p class="font-bold text-sm mb-8 cursor-pointer hover:text-gray-500 transition-colors w-fit md:w-auto md:ml-auto border-b border-textDark pb-1">reservation@lunaresort.com</p>
+                <p class="text-[10px] lg:text-xs text-gray-500 font-bold uppercase tracking-widest" data-i18n="foot_address">Vinh Hy Bay, Ninh Thuan, VN</p>
+            </div>
+        </div>
+
+        <div class="footer-watermark mt-20 lg:mt-32 border-t text-center w-full flex justify-between tracking-normal bg-bgLight text-textDark pt-6 lg:pt-10">
+            <span>L</span><span>U</span><span>N</span><span>A</span>
+        </div>
+    </footer>
+
+    <!-- i18n Dictionary and Logic -->
+    <script>
+        const i18n = {
+            'en': {
+                'nav_home': 'Home',
+                'nav_about': 'About Us',
+                'nav_contact': 'Contact',
+                'hero_title': 'LUNA<br>RESORT',
+                'hero_desc': 'LUNA Resort & Hotel offers an exquisite retreat embracing the pristine Vinh Hy Bay. No rules, no boundaries.',
+                'hero_since': 'Since 2026',
+                'hero_thumb_title': 'Vinh Hy Bay',
+                'book_checkin': 'CHECK IN',
+                'book_checkout': 'CHECK OUT',
+                'book_guest': 'GUEST',
+                'book_guest_val': '2 Adults',
+                'book_btn': 'BOOK NOW',
+                'priv_bg_text': 'PRIVATE<br>SPACE',
+                'priv_title': 'ABSOLUTE<br>PRIVACY',
+                'priv_desc': 'In an era of rushed journeys, LUNA chooses a different path. No chaos, no pollution, just pure tranquility.',
+                'priv_villas_label': 'VILLAS',
+                'priv_years_label': 'YEARS',
+                'priv_guests_label': 'GUESTS/WK',
+                'villa_title_bg': 'NATURE SANCTUARY',
+                'villa_desc': 'The 45 Private Villas are designed with a sustainable philosophy. Utilizing bamboo, rattan, and natural wood, each features an infinity pool embracing the bay.',
+                'villa_1_title': '$450 / OCEAN VILLA',
+                'villa_1_desc': '1 Bed \\ 2 Guests',
+                'villa_2_title': '$650 / JUNGLE SUITE',
+                'villa_2_desc': '2 Beds \\ 4 Guests',
+                'well_title': 'REVIVE<br>YOUR SOUL',
+                'well_1_title': 'LUNA SPA',
+                'well_1_desc': 'Traditional therapies & Singing bowls.',
+                'well_2_title': 'PURE CUISINE',
+                'well_2_desc': 'Organic ingredients sourced from LUNA Farm.',
+                'well_3_title': 'OCEAN<br>YOGA',
+                'well_3_desc': 'Embrace the sunrise at the most pristine cliff of Vinh Hy Bay.',
+                'sus_title': 'SUSTAINABLE<br>DESIGN',
+                'sus_desc': 'Respecting native nature is our top philosophy. Every architectural detail is born from mother earth.',
+                'sus_1_title': 'INDIGENOUS ARCHITECTURE',
+                'sus_1_desc': 'Utilizing bamboo, rattan, and natural wood, hidden beneath the shell of contemporary Indochine architecture.',
+                'sus_2_title': 'SMART ENERGY',
+                'sus_2_desc': 'Intelligent system integrated with solar power, maximizing energy savings without compromising luxury.',
+                'why_title': 'WHY<br class="block lg:hidden"> LUNA?',
+                'why_1_title': 'ABSOLUTE<br>PRIVACY',
+                'why_1_desc': 'A completely isolated space, bringing absolute peace to your vacation.',
+                'why_2_title': 'CONTEMPORARY<br>INDOCHINE',
+                'why_2_desc': 'The perfect intersection between classical architecture and modern luxury amenities.',
+                'cta_title': 'YOUR DREAM<br><span class="text-accent italic">GETAWAY</span>',
+                'cta_btn': 'CHECK AVAILABILITY',
+                'foot_title': 'SUBSCRIBE<br>LUNA',
+                'foot_btn': 'SUBMIT',
+                'foot_contact_title': 'CONTACT',
+                'foot_address': 'Vinh Hy Bay, Ninh Thuan, VN'
+            },
+            'vi': {
+                'nav_home': 'Trang Chủ',
+                'nav_about': 'Về Chúng Tôi',
+                'nav_contact': 'Liên Hệ',
+                'hero_title': 'LUNA<br>RESORT',
+                'hero_desc': 'LUNA Resort & Hotel mang đến trải nghiệm nghỉ dưỡng tinh tế, ôm trọn vịnh Vĩnh Hy nguyên sơ. Không quy tắc, không gò bó.',
+                'hero_since': 'Từ năm 2026',
+                'hero_thumb_title': 'Vịnh Vĩnh Hy',
+                'book_checkin': 'NHẬN PHÒNG',
+                'book_checkout': 'TRẢ PHÒNG',
+                'book_guest': 'SỐ KHÁCH',
+                'book_guest_val': '2 Người Lớn',
+                'book_btn': 'ĐẶT NGAY',
+                'priv_bg_text': 'PRIVATE<br>SPACE',
+                'priv_title': 'ĐẶC QUYỀN<br>RIÊNG TƯ',
+                'priv_desc': 'Giữa kỷ nguyên của những chuyến đi vội vã, LUNA chọn một hướng đi khác. Không xô bồ, không khói bụi, chỉ có sự tĩnh lặng.',
+                'priv_villas_label': 'CĂN VILLAS',
+                'priv_years_label': 'NĂM',
+                'priv_guests_label': 'KHÁCH/TUẦN',
+                'villa_title_bg': 'TỔ ẤM GIỮA THIÊN NHIÊN',
+                'villa_desc': 'Hệ thống 45 Private Villa được thiết kế với triết lý phát triển bền vững. Sử dụng vật liệu mây tre đan, gỗ tự nhiên, hồ bơi vô cực ôm trọn vịnh biển.',
+                'villa_1_title': '$450 / OCEAN VILLA',
+                'villa_1_desc': '1 Giường \\ 2 Khách',
+                'villa_2_title': '$650 / JUNGLE SUITE',
+                'villa_2_desc': '2 Giường \\ 4 Khách',
+                'well_title': 'TÁI TẠO<br>NĂNG LƯỢNG',
+                'well_1_title': 'LUNA SPA',
+                'well_1_desc': 'Trị liệu cổ truyền & Chuông xoay.',
+                'well_2_title': 'ẨM THỰC THUẦN',
+                'well_2_desc': 'Nguyên liệu hữu cơ từ LUNA Farm.',
+                'well_3_title': 'YOGA<br>BIỂN',
+                'well_3_desc': 'Đón bình minh tại mỏm đá nguyên sơ nhất vịnh Vĩnh Hy.',
+                'sus_title': 'THIẾT KẾ<br>BỀN VỮNG',
+                'sus_desc': 'Tôn trọng thiên nhiên bản địa là triết lý hàng đầu. Mọi chi tiết kiến trúc đều sinh ra từ đất mẹ.',
+                'sus_1_title': 'KIẾN TRÚC BẢN ĐỊA',
+                'sus_1_desc': 'Sử dụng mây tre đan, gỗ tự nhiên, ẩn mình dưới lớp vỏ kiến trúc Đông Dương đương đại.',
+                'sus_2_title': 'NĂNG LƯỢNG',
+                'sus_2_desc': 'Hệ thống thông minh tích hợp điện mặt trời, tiết kiệm năng lượng tối đa mà không đánh đổi sự xa xỉ.',
+                'why_title': 'TẠI SAO<br class="block lg:hidden"> LUNA?',
+                'why_1_title': 'RIÊNG TƯ<br>TUYỆT ĐỐI',
+                'why_1_desc': 'Không gian hoàn toàn tách biệt, mang đến sự bình yên tuyệt đối cho kỳ nghỉ của bạn.',
+                'why_2_title': 'ĐÔNG DƯƠNG<br>ĐƯƠNG ĐẠI',
+                'why_2_desc': 'Sự giao thoa hoàn hảo giữa nét kiến trúc cổ điển và tiện nghi xa xỉ hiện đại.',
+                'cta_title': 'KỲ NGHỈ<br><span class="text-accent italic">TRONG MƠ</span>',
+                'cta_btn': 'KIỂM TRA PHÒNG',
+                'foot_title': 'SUBSCRIBE<br>LUNA',
+                'foot_btn': 'GỬI',
+                'foot_contact_title': 'LIÊN HỆ',
+                'foot_address': 'Vịnh Vĩnh Hy, Ninh Thuận, VN'
+            }
+        };
+
+        function setLanguage(lang) {
+            // Update UI buttons
+            const btnEn = document.getElementById('btn-lang-en');
+            const btnVi = document.getElementById('btn-lang-vi');
+            
+            if (lang === 'en') {
+                btnEn.className = 'lang-active transition-colors pb-1';
+                btnVi.className = 'lang-inactive transition-colors pb-1';
+            } else {
+                btnVi.className = 'lang-active transition-colors pb-1';
+                btnEn.className = 'lang-inactive transition-colors pb-1';
+            }
+
+            // Update all translated elements
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang] && i18n[lang][key]) {
+                    el.innerHTML = i18n[lang][key];
+                }
+            });
+        }
+
+        // Initialize with English as default
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage('en');
+        });
+    </script>
+
+    <!-- Slider Script -->
+    <script>
+        const roomsSlider = document.querySelector('.snap-x');
+        if (roomsSlider) {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            roomsSlider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                roomsSlider.style.cursor = 'grabbing';
+                startX = e.pageX - roomsSlider.offsetLeft;
+                scrollLeft = roomsSlider.scrollLeft;
+            });
+            roomsSlider.addEventListener('mouseleave', () => {
+                isDown = false;
+                roomsSlider.style.cursor = 'grab';
+            });
+            roomsSlider.addEventListener('mouseup', () => {
+                isDown = false;
+                roomsSlider.style.cursor = 'grab';
+            });
+            roomsSlider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - roomsSlider.offsetLeft;
+                const walk = (x - startX) * 2;
+                roomsSlider.scrollLeft = scrollLeft - walk;
+            });
+        }
+    </script>
+</body>
+</html>
