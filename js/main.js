@@ -113,8 +113,12 @@ window.addEventListener('load', () => {
         const mainWrapper = document.getElementById('main-wrapper');
         if (footer && mainWrapper) {
             function updateFooterMargin() {
-                const footerHeight = footer.offsetHeight;
-                mainWrapper.style.marginBottom = `${footerHeight}px`;
+                if (window.innerWidth >= 1024) {
+                    const footerHeight = footer.offsetHeight;
+                    mainWrapper.style.marginBottom = `${footerHeight}px`;
+                } else {
+                    mainWrapper.style.marginBottom = `0px`;
+                }
             }
             window.addEventListener('resize', updateFooterMargin);
             // Wait a tick for fonts/layout to settle before initial calculation
@@ -125,45 +129,41 @@ window.addEventListener('load', () => {
         const villasSection = document.getElementById('villas-section');
         const villasContainer = document.getElementById('villas-container');
         
-        // MatchMedia to only pin on desktop (so mobile remains swipeable/scrollable naturally or via CSS)
-        let mm = gsap.matchMedia();
-        mm.add("(min-width: 1024px)", () => {
-            if (villasSection && villasContainer) {
-                // Calculate total distance to scroll horizontally
-                // Subtract the padding (e.g., pl-32 is 8rem = 128px, plus right gap)
-                // We use scrollWidth - window.innerWidth to get the exact scrollable distance
-                const paddingEnd = 128;
-                const scrollWidth = villasContainer.scrollWidth - window.innerWidth + paddingEnd;
-                if (scrollWidth > 0) {
-                    const tl = gsap.timeline({
-                        scrollTrigger: {
-                            trigger: villasSection,
-                            start: "top top",
-                            end: () => `+=${scrollWidth + window.innerHeight}`,
-                            pin: true,
-                            scrub: 1,
-                            invalidateOnRefresh: true
-                        }
-                    });
-                    
-                    const subWrapper = document.getElementById('villa-sub-wrapper');
-                    
-                    // 1. Subtitle fades in and slides up
-                    tl.fromTo(subWrapper, 
-                        { opacity: 0, y: 50 },
-                        { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
-                    )
-                    // 2. Pause slightly
-                    .to({}, {duration: 0.5})
-                    // 3. Horizontal Scroll
-                    .to(villasContainer, {
-                        x: -scrollWidth,
-                        ease: "none",
-                        duration: 8 // Make horizontal scroll take the majority of the scroll distance
-                    });
-                }      
-            }
-        });
+        if (villasSection && villasContainer) {
+            // Calculate total distance to scroll horizontally
+            // Subtract the padding (e.g., pl-32 is 8rem = 128px, plus right gap)
+            // We use scrollWidth - window.innerWidth to get the exact scrollable distance
+            const paddingEnd = window.innerWidth >= 1024 ? 128 : 24; // Different padding end for mobile vs desktop
+            const scrollWidth = villasContainer.scrollWidth - window.innerWidth + paddingEnd;
+            if (scrollWidth > 0) {
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: villasSection,
+                        start: "top top",
+                        end: () => `+=${scrollWidth + window.innerHeight}`,
+                        pin: true,
+                        scrub: 1,
+                        invalidateOnRefresh: true
+                    }
+                });
+                
+                const subWrapper = document.getElementById('villa-sub-wrapper');
+                
+                // 1. Subtitle fades in and slides up
+                tl.fromTo(subWrapper, 
+                    { opacity: 0, y: 50 },
+                    { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
+                )
+                // 2. Pause slightly
+                .to({}, {duration: 0.5})
+                // 3. Horizontal Scroll
+                .to(villasContainer, {
+                    x: -scrollWidth,
+                    ease: "none",
+                    duration: 8 // Make horizontal scroll take the majority of the scroll distance
+                });
+            }      
+        }
 
         // 7. Global Entrance Animations (Fade Up)
         const fadeUpElements = document.querySelectorAll('p, h3, button, .text-\\[20vw\\], .text-\\[25vw\\]');
@@ -207,5 +207,102 @@ window.addEventListener('load', () => {
             );
         }
 
+        // 9. Mobile Menu Toggle (Optimized with GSAP)
+        const menuBtn = document.getElementById('menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (menuBtn && closeMenuBtn && mobileMenu) {
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            const menuLogo = mobileMenu.querySelector('.font-heading');
+            
+            // Setup GSAP Timeline
+            const menuTl = gsap.timeline({ paused: true, reversed: true });
+            
+            menuTl.to(mobileMenu, {
+                x: "0%",
+                duration: 0.6,
+                ease: "power4.inOut"
+            })
+            .from([menuLogo, ...mobileLinks], {
+                y: 40,
+                opacity: 0,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: "power3.out"
+            }, "-=0.3"); // Overlap with menu sliding in
+            
+            function toggleMenu() {
+                if (menuTl.reversed()) {
+                    document.body.style.overflow = "hidden"; // Prevent background scrolling
+                    menuTl.play();
+                } else {
+                    document.body.style.overflow = ""; // Restore scrolling
+                    menuTl.reverse();
+                }
+            }
+            
+            menuBtn.addEventListener('click', toggleMenu);
+            closeMenuBtn.addEventListener('click', toggleMenu);
+            
+            // Close menu when clicking a link
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', toggleMenu);
+            });
+        }
+
+        // 10. Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // 11. Booking Logic
+        const bookBtns = document.querySelectorAll('.book-now-btn');
+        const bookingModal = document.getElementById('booking-modal');
+        const closeBookingBtn = document.getElementById('close-booking-btn');
+        const submitBookingBtn = document.getElementById('submit-booking-btn');
+
+        if (bookBtns.length > 0) {
+            bookBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (window.innerWidth < 1024) {
+                        // Open Mobile Overlay
+                        if (bookingModal) {
+                            bookingModal.classList.remove('translate-y-full');
+                            document.body.style.overflow = "hidden"; // Prevent scrolling
+                        }
+                    } else {
+                        // Process booking directly on Desktop
+                        alert("Reservation request submitted successfully! We will contact you shortly.");
+                    }
+                });
+            });
+        }
+
+        if (closeBookingBtn && bookingModal) {
+            closeBookingBtn.addEventListener('click', () => {
+                bookingModal.classList.add('translate-y-full');
+                document.body.style.overflow = ""; // Restore scrolling
+            });
+        }
+
+        if (submitBookingBtn && bookingModal) {
+            submitBookingBtn.addEventListener('click', () => {
+                alert("Reservation request submitted successfully! We will contact you shortly.");
+                bookingModal.classList.add('translate-y-full');
+                document.body.style.overflow = ""; // Restore scrolling
+            });
+        }
     }
 });

@@ -22,12 +22,11 @@ body { overflow-x: hidden; }
 
 .lang-active {
     font-weight: 900;
-    color: #1A1A1A;
-    border-bottom: 2px solid #1A1A1A;
+    border-bottom: 2px solid currentColor;
 }
 .lang-inactive {
     font-weight: 500;
-    color: #9CA3AF;
+    opacity: 0.5;
 }
 
 /* Typographic Art Styles */
